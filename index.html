@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0">
+<title>Brachial Plexus in 10 Seconds</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: one column. A whiteboard drawing leads; step captions and controls sit under it; a short legend and reading guide follow. */
+:root{
+  --bg:#eef1f5; --surface:#ffffff; --board:#fbfcfd; --fg:#14213d; --muted:#5b6575; --line:#d5dbe3;
+  --ink:#1f3a68; --post:#7b8594; --accent:#2e6da4; --accent-soft:#e3edf7; --pen:#c2412d; --label:#14213d;
+  --f-display:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1522; --surface:#172033; --board:#121a2b; --fg:#e4e9f1; --muted:#9aa5b5; --line:#2a3550;
+  --ink:#8fb6ee; --post:#8c96a6; --accent:#6aa8e8; --accent-soft:#1b2c47; --pen:#ff8a6b; --label:#e4e9f1;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1522; --surface:#172033; --board:#121a2b; --fg:#e4e9f1; --muted:#9aa5b5; --line:#2a3550;
+  --ink:#8fb6ee; --post:#8c96a6; --accent:#6aa8e8; --accent-soft:#1b2c47; --pen:#ff8a6b; --label:#e4e9f1;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:flex;flex-direction:column;gap:22px}
+h1,h2{font-family:var(--f-display);margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,5vw,2.9rem);font-weight:700}
+h2{font-size:1.4rem;font-weight:600}
+p{margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:500}
+header{display:flex;flex-direction:column;gap:10px}
+.lead{color:var(--muted);max-width:68ch}
+.board{background:var(--board);border:1px solid var(--line);border-radius:14px;padding:10px;position:relative;min-width:0}
+.board-scroll{overflow-x:auto}
+svg#plex{display:block;width:100%;min-width:560px;height:auto}
+.timer{position:absolute;top:14px;right:16px;font-family:var(--f-mono);font-variant-numeric:tabular-nums;font-size:1.05rem;color:var(--muted)}
+.timer b{color:var(--fg);font-size:1.4rem}
+.stroke{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ant{stroke:var(--ink);stroke-width:7}
+.post{stroke:var(--post);stroke-width:7}
+.root{stroke:var(--ink);stroke-width:7}
+.extra{stroke:var(--accent);stroke-width:3.5;stroke-dasharray:none}
+.lbl{font-family:var(--f-body);font-size:17px;fill:var(--label);opacity:0;transition:opacity .35s}
+.lbl.small{font-size:14px;fill:var(--muted)}
+.lbl.region{font-family:var(--f-mono);font-size:13px;letter-spacing:.12em;fill:var(--muted);text-transform:uppercase}
+.lbl.x{fill:var(--accent);font-size:14px}
+.lbl.on{opacity:1}
+.nolabels .lbl{opacity:0!important}
+.pen{fill:var(--pen);opacity:0;transition:opacity .2s}
+.pen.on{opacity:1}
+.guide{stroke:var(--line);stroke-width:1;stroke-dasharray:4 6}
+.panel{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:18px}
+.step-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.step-num{font-family:var(--f-mono);font-size:.8rem;color:var(--accent);letter-spacing:.08em}
+.step-title{font-family:var(--f-display);font-size:1.45rem;font-weight:600}
+.step-text{color:var(--fg)}
+.step-tip{color:var(--muted);font-size:.93rem}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:30px;height:6px;border-radius:3px;background:var(--line)}
+.dot.done{background:var(--accent)}
+.controls{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button{font:inherit;font-size:.93rem;border:1px solid var(--line);background:var(--bg);color:var(--fg);padding:8px 14px;border-radius:9px;cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+button:disabled{opacity:.45;cursor:default}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+label.check{display:flex;gap:8px;align-items:center;font-size:.93rem;cursor:pointer}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:.9rem;color:var(--muted)}
+.sw{display:inline-block;width:26px;height:6px;border-radius:3px;vertical-align:middle;margin-right:6px}
+.guide-list{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px 22px}
+.guide-list h3{font-family:var(--f-display);font-size:1.1rem;margin:0 0 4px}
+.guide-list p{font-size:.92rem;color:var(--muted)}
+@media (max-width:760px){.panel{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.lbl,.pen{transition:none}}
+</style>
+
+<div class="wrap">
+<header>
+  <span class="eyebrow">Regional anesthesia · anatomy</span>
+  <h1>Brachial Plexus in 10 Seconds</h1>
+  <p class="lead">Watch the plexus drawn the fast way: start with the M, slide the posterior cord behind it, then work back through divisions, trunks and roots. Play the full 10-second sketch, or step through it one stroke group at a time.</p>
+</header>
+
+<div class="board">
+  <div class="timer" aria-live="off"><b id="t">0.0</b> s</div>
+  <div class="board-scroll">
+  <svg id="plex" viewBox="0 0 1100 560" role="img" aria-label="Schematic of the brachial plexus drawn step by step: roots C5 to T1, trunks, divisions, cords and terminal branches">
+    <g id="guides">
+      <line class="guide" x1="200" y1="40" x2="200" y2="500"/><line class="guide" x1="330" y1="40" x2="330" y2="500"/>
+      <line class="guide" x1="500" y1="40" x2="500" y2="500"/><line class="guide" x1="650" y1="40" x2="650" y2="500"/>
+    </g>
+    <g id="regions">
+      <text class="lbl region" data-step="5" x="120" y="530" text-anchor="middle">Roots</text>
+      <text class="lbl region" data-step="3" x="265" y="530" text-anchor="middle">Trunks</text>
+      <text class="lbl region" data-step="4" x="415" y="530" text-anchor="middle">Divisions</text>
+      <text class="lbl region" data-step="1" x="575" y="530" text-anchor="middle">Cords</text>
+      <text class="lbl region" data-step="1" x="820" y="530" text-anchor="middle">Branches</text>
+    </g>
+    <g id="strokes"></g>
+    <g id="labels"></g>
+    <circle id="pen" class="pen" r="7" cx="0" cy="0"/>
+  </svg>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="step-card" aria-live="polite">
+    <span class="step-num" id="sn">READY</span>
+    <span class="step-title" id="st">Press “Draw in 10 seconds” or step through</span>
+    <p class="step-text" id="sx">The finished drawing reads left to right: 5 roots, 3 trunks, 6 divisions, 3 cords, 5 terminal branches.</p>
+    <p class="step-tip" id="sp">Mnemonic: Robert Taylor Drinks Cold Beer.</p>
+    <div class="dots" id="dots"></div>
+  </div>
+  <div class="controls">
+    <div class="row">
+      <button class="primary" id="play" type="button">Draw in 10 seconds</button>
+      <button id="reset" type="button">Clear</button>
+    </div>
+    <div class="row">
+      <button id="prev" type="button">Previous step</button>
+      <button id="next" type="button">Next step</button>
+    </div>
+    <label class="check"><input type="checkbox" id="labels" checked> Show labels</label>
+    <label class="check"><input type="checkbox" id="extras"> Add named branches (dorsal scapular, long thoracic, suprascapular, pectorals, subscapulars, thoracodorsal)</label>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--ink)"></span>Anterior divisions and their cords</span>
+      <span><span class="sw" style="background:var(--post)"></span>Posterior divisions and posterior cord</span>
+    </div>
+  </div>
+</div>
+
+<section class="guide-list" aria-label="How to read the drawing">
+  <div><h3>The M</h3><p>Lateral cord, the two roots of the median nerve and the medial cord make an M. Its outer legs end as the musculocutaneous (top) and ulnar (bottom) nerves; the median nerve leaves from the middle.</p></div>
+  <div><h3>Posterior cord</h3><p>Runs behind the M and splits into the axillary and radial nerves. All three posterior divisions feed it, so it carries C5–T1.</p></div>
+  <div><h3>Divisions</h3><p>Each trunk splits behind the clavicle at the lateral edge of the 1st rib. Anterior divisions usually supply flexors; posterior divisions usually supply extensors.</p></div>
+  <div><h3>Trunks and roots</h3><p>C5–C6 form the superior trunk, C7 the middle trunk, C8–T1 the inferior trunk. Roots emerge between the anterior and middle scalene.</p></div>
+</section>
+</div>
+
+<script>
+(function(){
+const NS='http://www.w3.org/2000/svg';
+// Geometry (viewBox 1000 x 560). Roots left, branches right.
+const Y={C5:90,C6:165,C7:255,C8:345,T1:420};
+const SUP=128, MID=255, INF=383;           // trunk levels
+const LAT=150, POST=265, MED=395;          // cord levels
+const S=[ // step, class, path, label
+ // Step 1: the M
+ {s:1,c:'ant',d:'M 500 150 L 650 150'},                         // lateral cord
+ {s:1,c:'ant',d:'M 650 150 L 940 72'},                          // musculocutaneous
+ {s:1,c:'ant',d:'M 650 150 L 790 330'},                         // lateral root of median
+ {s:1,c:'ant',d:'M 790 330 L 650 395'},                         // medial root of median
+ {s:1,c:'ant',d:'M 790 330 L 940 360'},                         // median
+ {s:1,c:'ant',d:'M 500 395 L 650 395'},                         // medial cord
+ {s:1,c:'ant',d:'M 650 395 L 940 470'},                         // ulnar
+ // Step 2: posterior cord behind the M
+ {s:2,c:'post',d:'M 500 265 L 690 265'},
+ {s:2,c:'post',d:'M 690 265 L 940 200'},                        // axillary
+ {s:2,c:'post',d:'M 690 265 L 940 285'},                        // radial
+ // Step 3: trunks
+ {s:3,c:'ant',d:'M 200 128 L 330 128'},
+ {s:3,c:'ant',d:'M 200 255 L 330 255'},
+ {s:3,c:'ant',d:'M 200 383 L 330 383'},
+ // Step 4: divisions
+ {s:4,c:'ant',d:'M 330 128 L 500 150'},                         // sup anterior -> lateral
+ {s:4,c:'ant',d:'M 330 255 L 500 150'},                         // mid anterior -> lateral
+ {s:4,c:'ant',d:'M 330 383 L 500 395'},                         // inf anterior -> medial
+ {s:4,c:'post',d:'M 330 128 L 500 265'},                        // sup posterior -> posterior
+ {s:4,c:'post',d:'M 330 255 L 500 265'},                        // mid posterior
+ {s:4,c:'post',d:'M 330 383 L 500 265'},                        // inf posterior
+ // Step 5: roots
+ {s:5,c:'root',d:'M 70 90 L 200 128'},
+ {s:5,c:'root',d:'M 70 165 L 200 128'},
+ {s:5,c:'root',d:'M 70 255 L 200 255'},
+ {s:5,c:'root',d:'M 70 345 L 200 383'},
+ {s:5,c:'root',d:'M 70 420 L 200 383'},
+ // Step 6 (optional): named branches
+ {s:6,c:'extra',x:1,d:'M 110 102 L 150 48'},                    // dorsal scapular (C5)
+ {s:6,c:'extra',x:1,d:'M 105 100 Q 120 230 95 470'},            // long thoracic (C5-C7) runs down
+ {s:6,c:'extra',x:1,d:'M 125 149 L 110 172'},
+ {s:6,c:'extra',x:1,d:'M 128 255 L 110 257'},
+ {s:6,c:'extra',x:1,d:'M 305 128 L 335 62'},                    // suprascapular (superior trunk)
+ {s:6,c:'extra',x:1,d:'M 560 150 L 590 92'},                    // lateral pectoral
+ {s:6,c:'extra',x:1,d:'M 560 395 L 590 455'},                   // medial pectoral
+ {s:6,c:'extra',x:1,d:'M 540 265 L 565 318'},                   // upper subscapular
+ {s:6,c:'extra',x:1,d:'M 585 265 L 610 330'},                   // thoracodorsal
+ {s:6,c:'extra',x:1,d:'M 630 265 L 650 318'},                   // lower subscapular
+];
+const L=[ // step, x, y, text, class, anchor
+ {s:1,x:948,y:77,t:'Musculocutaneous'},{s:1,x:948,y:365,t:'Median'},{s:1,x:948,y:475,t:'Ulnar'},
+ {s:1,x:575,y:176,t:'Lateral cord',c:'small',a:'middle'},{s:1,x:575,y:383,t:'Medial cord',c:'small',a:'middle'},
+ {s:2,x:948,y:205,t:'Axillary'},{s:2,x:948,y:290,t:'Radial'},{s:2,x:595,y:253,t:'Posterior cord',c:'small',a:'middle'},
+ {s:3,x:265,y:116,t:'Superior',c:'small',a:'middle'},{s:3,x:265,y:243,t:'Middle',c:'small',a:'middle'},{s:3,x:265,y:371,t:'Inferior',c:'small',a:'middle'},
+ {s:5,x:58,y:95,t:'C5',a:'end'},{s:5,x:58,y:170,t:'C6',a:'end'},{s:5,x:58,y:260,t:'C7',a:'end'},{s:5,x:58,y:350,t:'C8',a:'end'},{s:5,x:58,y:425,t:'T1',a:'end'},
+ {s:6,x:155,y:44,t:'Dorsal scapular',c:'x',x2:1},{s:6,x:100,y:492,t:'Long thoracic',c:'x',x2:1,a:'middle'},{s:6,x:340,y:56,t:'Suprascapular',c:'x',x2:1},
+ {s:6,x:596,y:88,t:'Lat. pectoral',c:'x',x2:1},{s:6,x:596,y:470,t:'Med. pectoral',c:'x',x2:1},
+ {s:6,x:600,y:350,t:'Subscapulars · thoracodorsal',c:'x',x2:1,a:'middle'},
+];
+const STEPS=[
+ {t:'Draw the M',x:'Start with a sideways M. The top leg is the lateral cord ending as the musculocutaneous nerve. The bottom leg is the medial cord ending as the ulnar nerve. The two inner strokes are the lateral and medial roots of the median nerve, which leaves from the middle.',p:'MCU top to bottom: Musculocutaneous, (median in the) Center, Ulnar.'},
+ {t:'Slide the posterior cord behind the M',x:'Draw a line between the cords and split it into two: the axillary nerve (upper) and the radial nerve (lower).',p:'Posterior cord branches: STAR. Subscapular (upper and lower), Thoracodorsal, Axillary, Radial.'},
+ {t:'Add three trunks',x:'Three short horizontal lines: superior, middle and inferior trunks.',p:'Trunks sit in the posterior triangle of the neck, joined by the subclavian artery.'},
+ {t:'Connect with six divisions',x:'Each trunk splits into an anterior and a posterior division. Anterior divisions of the superior and middle trunks form the lateral cord; the anterior division of the inferior trunk forms the medial cord. All three posterior divisions converge on the posterior cord, making the X.',p:'Divisions form behind the clavicle at the lateral edge of the 1st rib.'},
+ {t:'Finish with five roots',x:'C5 and C6 join to form the superior trunk, C7 continues as the middle trunk, and C8 and T1 join to form the inferior trunk.',p:'Roots emerge between the anterior and middle scalene (interscalene groove).'},
+ {t:'Optional: named branches',x:'From the roots: dorsal scapular (C5) and long thoracic (C5–C7). From the superior trunk: suprascapular. From the cords: lateral and medial pectoral; upper subscapular, thoracodorsal and lower subscapular from the posterior cord.',p:'Long thoracic nerve supplies serratus anterior.'}
+];
+
+const gS=document.getElementById('strokes'), gL=document.getElementById('labels'), svg=document.getElementById('plex');
+const pen=document.getElementById('pen'), tEl=document.getElementById('t');
+const els=S.map(o=>{const p=document.createElementNS(NS,'path');p.setAttribute('d',o.d);p.setAttribute('class','stroke '+o.c);gS.appendChild(p);const len=p.getTotalLength();p.style.strokeDasharray=len+' '+len;p.style.strokeDashoffset=len;o.el=p;o.len=len;return o;});
+// draw posterior strokes beneath anterior ones
+els.filter(o=>o.c==='post').forEach(o=>gS.insertBefore(o.el,gS.firstChild));
+const lbls=L.map(o=>{const t=document.createElementNS(NS,'text');t.setAttribute('x',o.x);t.setAttribute('y',o.y);t.setAttribute('class','lbl'+(o.c?' '+o.c:''));t.setAttribute('text-anchor',o.a||'start');t.textContent=o.t;gL.appendChild(t);o.el=t;return o;});
+const regions=[...document.querySelectorAll('#regions .lbl')];
+
+let step=0, playing=false, raf=null;
+const extrasOn=()=>document.getElementById('extras').checked;
+const maxStep=()=>extrasOn()?6:5;
+function strokesFor(n){return els.filter(o=>o.s===n);}
+function setStroke(o,frac){o.el.style.strokeDashoffset=o.len*(1-frac);}
+function showLabels(n,on){lbls.filter(o=>o.s===n).forEach(o=>o.el.classList.toggle('on',on));regions.filter(r=>+r.dataset.step===n).forEach(r=>r.classList.toggle('on',on));}
+function renderStatic(){
+  els.forEach(o=>setStroke(o,o.s<=step?1:0));
+  for(let n=1;n<=6;n++) showLabels(n,n<=step);
+  updateText();
+}
+function updateText(){
+  const sn=document.getElementById('sn'),st=document.getElementById('st'),sx=document.getElementById('sx'),sp=document.getElementById('sp');
+  if(step===0){sn.textContent='READY';st.textContent='Press “Draw in 10 seconds” or step through';sx.textContent='The finished drawing reads left to right: 5 roots, 3 trunks, 6 divisions, 3 cords, 5 terminal branches.';sp.textContent='Mnemonic: Robert Taylor Drinks Cold Beer.';}
+  else{const S2=STEPS[step-1];sn.textContent='STEP '+step+' OF '+maxStep();st.textContent=S2.t;sx.textContent=S2.x;sp.textContent=S2.p;}
+  const d=document.getElementById('dots');d.innerHTML='';for(let i=1;i<=maxStep();i++){const e=document.createElement('span');e.className='dot'+(i<=step?' done':'');d.appendChild(e);}
+  document.getElementById('prev').disabled=playing||step===0;
+  document.getElementById('next').disabled=playing||step>=maxStep();
+  document.getElementById('reset').disabled=playing&&false;
+}
+// Animate a list of strokes over a duration; pen follows the tip.
+function animate(list,dur,onStepDone,done,timed){
+  const total=list.reduce((a,o)=>a+o.len,0); let start=null;
+  const ends=[];let acc=0;list.forEach(o=>{acc+=o.len;ends.push(acc);});
+  let lastStep=list.length?list[0].s:0;
+  function frame(ts){
+    if(!playing) return;
+    if(start===null) start=ts;
+    const el=Math.min(1,(ts-start)/dur), dist=el*total;
+    let prev=0, tip=null;
+    list.forEach((o,i)=>{
+      const f=Math.max(0,Math.min(1,(dist-prev)/o.len)); setStroke(o,f);
+      if(f>0&&f<1) tip=o; prev=ends[i];
+      if(f>=1&&o.s!==lastStep){}
+    });
+    // step completion -> labels
+    list.forEach((o,i)=>{ if(dist>=ends[i] && (i===list.length-1 || list[i+1].s!==o.s)) onStepDone(o.s); });
+    if(tip){const off=parseFloat(tip.el.style.strokeDashoffset);const pt=tip.el.getPointAtLength(tip.len-off);pen.setAttribute('cx',pt.x);pen.setAttribute('cy',pt.y);pen.classList.add('on');}
+    if(timed) tEl.textContent=((ts-start)/1000).toFixed(1);
+    if(el<1) raf=requestAnimationFrame(frame); else {pen.classList.remove('on');done();}
+  }
+  raf=requestAnimationFrame(frame);
+}
+function stop(){playing=false;if(raf)cancelAnimationFrame(raf);pen.classList.remove('on');}
+function play(){
+  stop(); step=0; renderStatic(); tEl.textContent='0.0';
+  playing=true; updateText();
+  const n=maxStep(); const list=els.filter(o=>o.s<=n);
+  animate(list,10000,s=>{if(s>step){step=s;showLabels(s,true);updateText();}},()=>{playing=false;step=n;renderStatic();tEl.textContent='10.0';},true);
+}
+function goTo(n){
+  stop(); tEl.textContent='0.0'; const from=step; step=Math.max(0,Math.min(maxStep(),n));
+  if(step>from && step===from+1){
+    els.forEach(o=>setStroke(o,o.s<from+1?1:0)); for(let k=1;k<=6;k++) showLabels(k,k<=from);
+    playing=true; updateText(); const list=strokesFor(step); const dur=Math.max(900,list.reduce((a,o)=>a+o.len,0)*1.6);
+    const t0=performance.now();
+    animate(list,dur,s=>showLabels(s,true),()=>{playing=false;renderStatic();});
+  } else { renderStatic(); }
+}
+document.getElementById('play').addEventListener('click',play);
+document.getElementById('reset').addEventListener('click',()=>{stop();step=0;renderStatic();tEl.textContent='0.0';});
+document.getElementById('next').addEventListener('click',()=>goTo(step+1));
+document.getElementById('prev').addEventListener('click',()=>goTo(step-1));
+document.getElementById('labels').addEventListener('change',e=>svg.classList.toggle('nolabels',!e.target.checked));
+document.getElementById('extras').addEventListener('change',()=>{if(!extrasOn()&&step>5) step=5; if(!playing) renderStatic(); else updateText();});
+// Open on the finished drawing so the page reads at rest.
+step=5; renderStatic();
+})();
+</script>
+
+</body></html>
